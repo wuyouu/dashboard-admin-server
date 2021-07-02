@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "alias": [
+    "dashboard-server",
+    "dashboard-server.now.sh"
+  ],
+  "env": {
+    "JWT_SECRET": "@jwt-secret",
+    "JWT_ISSUER": "@jwt-issuer",
+    "JWT_AUDIENCE": "@jwt-audience"
+  },
+  "builds": [
+    { "src": "public/index.html", "use": "@vercel/static" },
+    { "src": "server/index.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/public/index.html" },
+    { "src": "/index.html", "status": 301, "headers": { "Location": "/" } },
+    { "src": "/(.*)", "dest": "/server/index.js" }
+  ]
+}
